@@ -1,15 +1,18 @@
 import { Request, Response, NextFunction } from "express";
 
-type ExpressMiddlewareFn = (
+type ExpressFn = (req: Request, res: Response, next: NextFunction) => void;
+
+export type ControllerFn = (
   req: Request,
   res: Response,
   next: NextFunction
-) => void;
+) => Promise<any> | any;
 
-function controller(fn: ExpressMiddlewareFn): ExpressMiddlewareFn {
+function controller(fn: ControllerFn): ExpressFn {
   return async (req, res, next) => {
     try {
-      await fn(req, res, next);
+      const response = await fn(req, res, next);
+      res.json(response);
     } catch (err) {
       next(err);
     }

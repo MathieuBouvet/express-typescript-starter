@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import "module-alias/register";
 
 import controller from "@lib/controller";
+import postRouter from "@src/routes/post";
 
 import HttpError from "@lib/HttpError";
 import errorHandler from "@middlewares/errorHandler";
@@ -11,6 +12,8 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT ?? 4000;
+
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.json("Hello express with typescript world");
@@ -27,6 +30,8 @@ app.get(
     res.json(code);
   })
 );
+
+app.use("/post", postRouter);
 
 app.use(errorHandler);
 

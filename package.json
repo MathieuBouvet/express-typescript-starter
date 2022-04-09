@@ -25,6 +25,7 @@
   "_moduleAliases": {
     "@src": "dist/src",
     "@lib": "dist/src/lib",
-    "@middlewares": "dist/src/middlewares"
+    "@middlewares": "dist/src/middlewares",
+    "@routes": "dist/src/routes"
   }
 }
